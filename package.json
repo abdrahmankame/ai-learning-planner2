@@ -1,0 +1,12 @@
+{
+    "name": "ai-learning-planner",
+    "version": "1.0.0",
+    "private": true,
+    "description": "AI-powered personalized learning planner",
+    "dependencies": {
+      "firebase-admin": "^12.0.0"
+    },
+    "engines": {
+      "node": ">=18"
+    }
+  }
