@@ -1,9 +1,0 @@
-@media (max-width: 768px) {
-    .nav-links a:not(.btn) { display: none; }
-    .grid-3 { grid-template-columns: 1fr; }
-    .dashboard-layout { grid-template-columns: 1fr; }
-    .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
-    .dashboard-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 30px; }
-    .hero { padding: 48px 0; }
-  }
