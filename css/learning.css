@@ -1,0 +1,150 @@
+.plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .plan-header h1 { font-size: 26px; }
+  .plan-meta { color: var(--muted); font-size: 14px; margin-top: 6px; }
+  .plan-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .plan-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stage-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .stage-header {
+    padding: 20px 24px;
+    background: linear-gradient(90deg, #eef2ff, #f9fafb);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .stage-header h3 { font-size: 18px; }
+  .stage-header .stage-weeks { color: var(--muted); font-size: 13px; }
+  .stage-body {
+    padding: 0 24px 20px;
+    display: none;
+  }
+  .stage-body.open { display: block; }
+  .stage-description { color: var(--muted); font-size: 14px; margin: 12px 0 16px; }
+  .topics-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .topic-chip {
+    background: #eef2ff;
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+  .lesson-btn { margin-top: 16px; display: inline-block; }
+  .lesson-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+  }
+  .lesson-content {
+    background: var(--surface);
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .lesson-content h1 { font-size: 26px; margin-bottom: 12px; }
+  .lesson-objectives {
+    background: #f0fdf4;
+    border-left: 4px solid var(--success);
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  .lesson-objectives h3 { font-size: 15px; margin-bottom: 8px; }
+  .lesson-objectives ul { padding-right: 20px; font-size: 14px; }
+  .lesson-body { line-height: 1.9; font-size: 15px; }
+  .lesson-body h2 { margin: 24px 0 12px; font-size: 20px; }
+  .lesson-body h3 { margin: 20px 0 8px; font-size: 17px; }
+  .lesson-body p { margin-bottom: 12px; }
+  .lesson-body pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .lesson-body code {
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .lesson-body pre code { background: none; padding: 0; }
+  .lesson-actions {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .tutor-panel {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    position: sticky;
+    top: 20px;
+  }
+  .tutor-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .tutor-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tutor-msg { padding: 10px 14px; border-radius: 12px; font-size: 14px; max-width: 90%; }
+  .tutor-msg.user { background: #eef2ff; align-self: flex-end; }
+  .tutor-msg.ai { background: #f3f4f6; align-self: flex-start; }
+  .tutor-input {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid var(--border);
+    gap: 8px;
+  }
+  .tutor-input input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .tutor-input button {
+    padding: 10px 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .tutor-input button:disabled { opacity: 0.5; cursor: not-allowed; }
+  @media (max-width: 900px) {
+    .plan-stats { grid-template-columns: repeat(2, 1fr); }
+    .lesson-layout { grid-template-columns: 1fr; }
+    .tutor-panel { height: 400px; position: static; }
+  }
