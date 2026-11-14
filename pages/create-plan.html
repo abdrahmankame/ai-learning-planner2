@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إنشاء خطة تعلم</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width:560px;">
+      <h1>إنشاء خطة تعلم</h1>
+      <p class="subtitle">أخبرنا عن هدفك وسنبني لك خطة شخصية</p>
+      <form id="plan-form">
+        <div class="form-group"><label for="skill">المهارة</label><input type="text" id="skill" placeholder="مثال: Python" required /></div>
+        <div class="form-group"><label for="goal">الهدف</label><input type="text" id="goal" placeholder="مثال: بناء تطبيقات ويب" required /></div>
+        <div class="form-group"><label for="level">المستوى</label>
+          <select id="level">
+            <option value="Beginner">مبتدئ</option>
+            <option value="Intermediate">متوسط</option>
+            <option value="Advanced">متقدم</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="dailyMinutes">الوقت اليومي (دقيقة)</label><input type="number" id="dailyMinutes" value="60" min="15" max="480" required /></div>
+        <div class="form-group"><label for="daysPerWeek">أيام في الأسبوع</label><input type="number" id="daysPerWeek" value="5" min="1" max="7" required /></div>
+        <div class="form-group"><label for="durationWeeks">المدة (أسابيع)</label><input type="number" id="durationWeeks" value="8" min="1" max="52" required /></div>
+        <div class="form-group"><label for="language">اللغة</label>
+          <select id="language"><option value="ar">العربية</option><option value="en">English</option></select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn" style="width:100%">إنشاء الخطة</button>
+        <p id="message" class="error-message" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth } from "/js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { callApi } from "/js/api-client.js";
+    import { validatePlanInput } from "/js/validators.js";
+    const msg = document.getElementById("message");
+    const btn = document.getElementById("submit-btn");
+    const form = document.getElementById("plan-form");
+    onAuthStateChanged(auth, (u) => { if (!u) window.location.href = "/pages/login.html"; });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.hidden = true;
+      const input = {
+        skill: document.getElementById("skill").value.trim(),
+        goal: document.getElementById("goal").value.trim(),
+        level: document.getElementById("level").value,
+        dailyMinutes: Number(document.getElementById("dailyMinutes").value),
+        daysPerWeek: Number(document.getElementById("daysPerWeek").value),
+        durationWeeks: Number(document.getElementById("durationWeeks").value),
+        language: document.getElementById("language").value
+      };
+      const errors = validatePlanInput(input);
+      if (errors.length) { msg.textContent = errors[0]; msg.hidden = false; return; }
+      btn.disabled = true;
+      btn.textContent = "جاري بناء الخطة...";
+      try {
+        const result = await callApi("create-learning-plan", input);
+        window.location.href = `/pages/plan-details.html?id=${result.pathId}`;
+      } catch (err) {
+        msg.textContent = err.message; msg.hidden = false;
+        btn.disabled = false; btn.textContent = "إنشاء الخطة";
+      }
+    });
+  </script>
+</body>
+</html>

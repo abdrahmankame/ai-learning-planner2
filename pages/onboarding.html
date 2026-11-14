@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ملفك التعليمي</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card" style="max-width:560px;">
+      <h1>ملفك التعليمي</h1>
+      <p class="subtitle">ساعدنا على فهم هدفك لبناء خطة مناسبة لك</p>
+      <form id="onboarding-form">
+        <div class="form-group">
+          <label for="skill">المهارة التي تريد تعلمها</label>
+          <input type="text" id="skill" placeholder="مثال: Python" required />
+        </div>
+        <div class="form-group">
+          <label for="level">مستواك الحالي</label>
+          <select id="level" required>
+            <option value="Beginner">مبتدئ</option>
+            <option value="Intermediate">متوسط</option>
+            <option value="Advanced">متقدم</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="goal">هدفك</label>
+          <input type="text" id="goal" placeholder="مثال: بناء تطبيقات ويب" required />
+        </div>
+        <div class="form-group">
+          <label for="daily">الوقت اليومي المتاح (دقيقة)</label>
+          <input type="number" id="daily" min="15" max="480" value="60" required />
+        </div>
+        <div class="form-group">
+          <label for="days">أيام الدراسة في الأسبوع</label>
+          <input type="number" id="days" min="1" max="7" value="5" required />
+        </div>
+        <div class="form-group">
+          <label for="language">اللغة المفضلة</label>
+          <select id="language">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%">حفظ ومتابعة</button>
+        <p id="message" class="error-message" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth } from "/js/firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { db } from "/js/firebase-config.js";
+    import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const msg = document.getElementById("message");
+    onAuthStateChanged(auth, (user) => {
+      if (!user) window.location.href = "/pages/login.html";
+    });
+    document.getElementById("onboarding-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      msg.hidden = true;
+      const user = auth.currentUser;
+      if (!user) return;
+      const profile = {
+        learningInterests: [document.getElementById("skill").value.trim()],
+        currentLevel: document.getElementById("level").value,
+        learningGoals: [document.getElementById("goal").value.trim()],
+        dailyAvailableMinutes: Number(document.getElementById("daily").value),
+        availableDays: Number(document.getElementById("days").value),
+        preferredLanguage: document.getElementById("language").value,
+        updatedAt: serverTimestamp()
+      };
+      try {
+        await setDoc(doc(db, "users", user.uid, "profile", "main"), profile, { merge: true });
+        await setDoc(doc(db, "users", user.uid), {
+          displayName: user.displayName || user.email.split("@")[0],
+          email: user.email,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+        window.location.href = "/pages/create-plan.html";
+      } catch (err) {
+        msg.textContent = "تعذر حفظ الملف: " + err.message;
+        msg.hidden = false;
+      }
+    });
+  </script>
+</body>
+</html>

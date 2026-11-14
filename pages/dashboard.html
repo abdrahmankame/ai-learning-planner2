@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم</title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h3 style="margin-bottom:20px;">🧠 AI Planner</h3>
+      <nav>
+        <a href="/pages/dashboard.html" class="active">لوحة التحكم</a>
+        <a href="/pages/create-plan.html">إنشاء خطة</a>
+        <a href="/pages/progress.html">تقدمي</a>
+        <a href="/pages/settings.html">الإعدادات</a>
+        <a href="#" id="logout-link">تسجيل الخروج</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <h1 id="welcome">مرحباً 👋</h1>
+      <p style="color:var(--muted);margin-bottom:24px;">هذه نظرة عامة على رحلتك التعليمية</p>
+      <div id="loading" class="loading"><div class="spinner"></div>جاري التحميل...</div>
+      <div id="content" hidden>
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="plans-count">0</div>
+            <div class="stat-label">خطط نشطة</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="lessons-count">0</div>
+            <div class="stat-label">دروس مكتملة</div>
+          </div>
+        </div>
+        <h2 style="margin-top:32px;font-size:20px;">خططك التعليمية</h2>
+        <div id="plans-list"></div>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

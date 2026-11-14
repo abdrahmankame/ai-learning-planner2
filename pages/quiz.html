@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختبار — AI Learning Planner</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <style>
+    .quiz-container { max-width: 760px; margin: 40px auto; padding: 0 20px; }
+    .quiz-progress-bar { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; margin-bottom: 8px; }
+    .quiz-progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; }
+    .quiz-progress-text { font-size: 13px; color: var(--muted); margin-bottom: 24px; text-align: center; }
+    .question-card { background: var(--surface); padding: 28px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; }
+    .question-number { font-size: 13px; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
+    .question-text { font-size: 18px; font-weight: 500; margin-bottom: 20px; line-height: 1.6; }
+    .option { display: flex; align-items: center; padding: 14px 18px; border: 2px solid var(--border); border-radius: 10px; margin-bottom: 10px; cursor: pointer; transition: all 0.2s; }
+    .option:hover { border-color: var(--primary); }
+    .option.selected { border-color: var(--primary); background: #eef2ff; }
+    .option input { margin-left: 12px; }
+    .option.correct { border-color: var(--success); background: #ecfdf5; }
+    .option.wrong { border-color: var(--danger); background: #fef2f2; }
+    .explanation { margin-top: 12px; padding: 12px 16px; background: #f9fafb; border-right: 3px solid var(--primary); border-radius: 6px; font-size: 14px; color: var(--muted); }
+    .quiz-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+    .result-card { background: var(--surface); padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); text-align: center; }
+    .result-score { font-size: 56px; font-weight: 700; color: var(--primary); margin: 16px 0; }
+    .result-label { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+    .ai-feedback { background: #eef2ff; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: right; font-size: 15px; line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div id="loading" class="loading"><div class="spinner"></div>جاري تحميل الاختبار...</div>
+    <div id="error-box" hidden>
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <p id="error-text"></p>
+        <a href="/pages/dashboard.html" class="btn btn-outline" style="margin-top:16px;display:inline-block">العودة للوحة التحكم</a>
+      </div>
+    </div>
+    <div id="setup-box" hidden>
+      <div class="empty-state">
+        <div class="icon">📝</div>
+        <h2>اختبار الدرس</h2>
+        <p id="setup-desc" style="margin:16px 0;"></p>
+        <button id="start-quiz-btn" class="btn btn-primary">إنشاء الاختبار</button>
+      </div>
+    </div>
+    <div id="quiz-box" hidden>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="quiz-progress-text" id="progress-text"></div>
+      <div id="questions-container"></div>
+      <div class="quiz-actions">
+        <button id="prev-btn" class="btn btn-outline" disabled>السابق</button>
+        <button id="next-btn" class="btn btn-primary">التالي</button>
+      </div>
+    </div>
+    <div id="result-box" hidden>
+      <div class="result-card">
+        <div style="font-size:48px;">🎉</div>
+        <h2>انتهى الاختبار</h2>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-label" id="result-label"></div>
+        <div id="ai-feedback-box" class="ai-feedback" hidden></div>
+        <div id="review-container" style="text-align:right;margin-top:24px;"></div>
+        <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a id="back-to-lesson" class="btn btn-outline">العودة للدرس</a>
+          <a id="back-to-plan" class="btn btn-primary">العودة للخطة</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/js/quizzes.js"></script>
+</body>
+</html>

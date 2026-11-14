@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تفاصيل الخطة — AI Learning Planner</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/learning.css" />
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h3 style="margin-bottom:20px;">🧠 AI Planner</h3>
+      <nav>
+        <a href="/pages/dashboard.html">لوحة التحكم</a>
+        <a href="/pages/create-plan.html">إنشاء خطة</a>
+        <a href="/pages/progress.html">تقدمي</a>
+        <a href="/pages/settings.html">الإعدادات</a>
+        <a href="#" id="logout-link">تسجيل الخروج</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div id="loading" class="loading"><div class="spinner"></div>جاري تحميل الخطة...</div>
+      <div id="error-box" hidden>
+        <div class="empty-state">
+          <div class="icon">⚠️</div>
+          <p id="error-text"></p>
+          <a href="/pages/dashboard.html" class="btn btn-outline" style="margin-top:16px;display:inline-block">العودة للوحة التحكم</a>
+        </div>
+      </div>
+      <div id="content" hidden>
+        <div class="plan-header">
+          <div>
+            <h1 id="plan-title"></h1>
+            <p class="plan-meta" id="plan-meta"></p>
+          </div>
+          <div class="plan-actions">
+            <button id="pause-btn" class="btn btn-outline" hidden>إيقاف مؤقت</button>
+            <button id="resume-btn" class="btn btn-primary" hidden>استئناف</button>
+            <button id="archive-btn" class="btn btn-outline" hidden>أرشفة</button>
+          </div>
+        </div>
+        <div class="plan-stats">
+          <div class="stat-card"><div class="stat-value" id="stat-stages">0</div><div class="stat-label">مراحل</div></div>
+          <div class="stat-card"><div class="stat-value" id="stat-weeks">0</div><div class="stat-label">أسابيع</div></div>
+          <div class="stat-card"><div class="stat-value" id="stat-lessons">0</div><div class="stat-label">دروس</div></div>
+          <div class="stat-card"><div class="stat-value" id="stat-progress">0%</div><div class="stat-label">نسبة الإنجاز</div></div>
+        </div>
+        <h2 style="margin-top:32px;font-size:22px;">المراحل</h2>
+        <div id="stages-container"></div>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/js/plans.js"></script>
+</body>
+</html>

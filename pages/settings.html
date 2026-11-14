@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الإعدادات — AI Learning Planner</title>
+  <link rel="stylesheet" href="/css/main.css" />
+  <style>
+    .settings-section { background: var(--surface); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; }
+    .settings-section h2 { font-size: 18px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .danger-zone { border: 2px solid #fecaca; background: #fef2f2; }
+    .danger-zone h2 { color: var(--danger); border-color: #fecaca; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <h3 style="margin-bottom:20px;">🧠 AI Planner</h3>
+      <nav>
+        <a href="/pages/dashboard.html">لوحة التحكم</a>
+        <a href="/pages/create-plan.html">إنشاء خطة</a>
+        <a href="/pages/progress.html">تقدمي</a>
+        <a href="/pages/settings.html" class="active">الإعدادات</a>
+        <a href="#" id="logout-link">تسجيل الخروج</a>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <h1 style="margin-bottom:24px;">الإعدادات ⚙️</h1>
+      <div id="loading" class="loading"><div class="spinner"></div>جاري التحميل...</div>
+      <div id="content" hidden>
+        <section class="settings-section">
+          <h2>الملف الشخصي</h2>
+          <div class="form-group"><label>الاسم</label><input type="text" id="displayName" /></div>
+          <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="email" disabled style="background:#f3f4f6;" /></div>
+          <button id="save-profile-btn" class="btn btn-primary">حفظ التغييرات</button>
+          <p id="profile-msg" class="success-message" hidden>تم الحفظ ✅</p>
+        </section>
+        <section class="settings-section">
+          <h2>التفضيلات التعليمية</h2>
+          <div class="form-group"><label>اللغة المفضلة</label>
+            <select id="preferredLanguage"><option value="ar">العربية</option><option value="en">English</option></select>
+          </div>
+          <div class="form-group"><label>الوقت اليومي المتاح (دقيقة)</label><input type="number" id="dailyAvailableMinutes" min="15" max="480" /></div>
+          <div class="form-group"><label>أيام الدراسة في الأسبوع</label><input type="number" id="availableDays" min="1" max="7" /></div>
+          <button id="save-prefs-btn" class="btn btn-primary">حفظ التفضيلات</button>
+          <p id="prefs-msg" class="success-message" hidden>تم الحفظ ✅</p>
+        </section>
+        <section class="settings-section">
+          <h2>إدارة الحساب</h2>
+          <p style="color:var(--muted);margin-bottom:16px;font-size:14px;">يمكنك إعادة تعيين كلمة المرور عبر البريد الإلكتروني.</p>
+          <button id="reset-password-btn" class="btn btn-outline">إرسال رابط إعادة تعيين كلمة المرور</button>
+        </section>
+        <section class="settings-section danger-zone">
+          <h2>⚠️ منطقة الخطر</h2>
+          <p style="margin-bottom:16px;">حذف الحساب سيؤدي إلى حذف <strong>جميع</strong> خططك، تقدمك، واختباراتك نهائياً. لا يمكن التراجع.</p>
+          <button id="delete-account-btn" class="btn" style="background:var(--danger);color:white;">حذف الحساب نهائياً</button>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="/js/settings.js"></script>
+</body>
+</html>
